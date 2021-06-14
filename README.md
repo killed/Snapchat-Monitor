@@ -1,5 +1,5 @@
 # Bugs
-[Discord](https://discord.gg/KVe4wj2AR5)
+[Discord](https://discord.gg/VTeJ5hhF66)
 
 # Setup
 [Download](https://github.com/killed/Snapchat-Monitor/releases/tag/v1)
