@@ -1,0 +1,11 @@
+D:\Programming\C#\Visual Studio 2019\Projects\Snapchat Monitor\Snapchat Monitor\bin\Debug\Snapchat Monitor.exe.config
+D:\Programming\C#\Visual Studio 2019\Projects\Snapchat Monitor\Snapchat Monitor\bin\Debug\Snapchat Monitor.exe
+D:\Programming\C#\Visual Studio 2019\Projects\Snapchat Monitor\Snapchat Monitor\bin\Debug\Snapchat Monitor.pdb
+D:\Programming\C#\Visual Studio 2019\Projects\Snapchat Monitor\Snapchat Monitor\bin\Debug\ChilkatDotNet46.dll
+D:\Programming\C#\Visual Studio 2019\Projects\Snapchat Monitor\Snapchat Monitor\bin\Debug\Newtonsoft.Json.dll
+D:\Programming\C#\Visual Studio 2019\Projects\Snapchat Monitor\Snapchat Monitor\bin\Debug\Newtonsoft.Json.xml
+D:\Programming\C#\Visual Studio 2019\Projects\Snapchat Monitor\Snapchat Monitor\obj\Debug\Snapchat Monitor.csproj.CoreCompileInputs.cache
+D:\Programming\C#\Visual Studio 2019\Projects\Snapchat Monitor\Snapchat Monitor\obj\Debug\Snapchat Monitor.csproj.CopyComplete
+D:\Programming\C#\Visual Studio 2019\Projects\Snapchat Monitor\Snapchat Monitor\obj\Debug\Snapchat Monitor.exe
+D:\Programming\C#\Visual Studio 2019\Projects\Snapchat Monitor\Snapchat Monitor\obj\Debug\Snapchat Monitor.pdb
+D:\Programming\C#\Visual Studio 2019\Projects\Snapchat Monitor\Snapchat Monitor\obj\Debug\Snapchat Monitor.csprojAssemblyReference.cache

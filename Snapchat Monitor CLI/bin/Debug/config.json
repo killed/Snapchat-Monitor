@@ -1,0 +1,17 @@
+{
+    "snapchat":
+    {
+        "username": "",
+        "payload": "",
+        "mac": ""
+    },
+    "discord":
+    {
+        "webhook": "",
+        "embedColour": ""
+    },
+    "program":
+    {
+        "debug": false
+    }
+}
