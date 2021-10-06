@@ -1,52 +1,43 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Net.Sockets;
 using System.Text;
+using System.Linq;
+using Newtonsoft.Json;
 using System.Threading;
-using Snapchat_Monitor.Classes;
 using System.Reflection;
+using System.Net.Sockets;
+using Newtonsoft.Json.Linq;
+using Snapchat_Monitor.Classes;
 using Snapchat_Monitor_CLI.Classes;
 
 namespace Snapchat_Monitor
 {
     class Program
     {
+        // If you're reading this then please don't try making your own program with this socket
+
         static void Main(string[] args)
         {
             const string REGISTRY_KEY = @"HKEY_CURRENT_USER\Snapchat_Monitor_CLI";
-            const string REGISTY_VALUE = "BigPurrr";
+            const string REGISTY_VALUE = "SnapchatMonitor";
 
             Chilkat.Crypt2 crypt = new Chilkat.Crypt2();
 
-            bool startCheck = false;
-
-            string discordWebhook = string.Empty;
-            string embedColour = string.Empty;
-
-            string uuid = crypt.GenerateUuid();
-            string username = string.Empty;
-            string payload = string.Empty;
-            string mac = string.Empty;
-            bool debug = false;
-
+            string uuid, username, payload, mac, data = crypt.GenerateUuid(), string.Empty, string.Empty, string.Empty, null;
+            string discordWebhook, embedColour = string.Empty, string.Empty;
+            bool startCheck, debug = false, false;
             Byte[] bytes = new Byte[8192];
-            string data = null;
-            int i;
 
             if (Convert.ToInt32(Microsoft.Win32.Registry.GetValue(REGISTRY_KEY, REGISTY_VALUE, 0)) == 0)
             {
                 Console.WriteLine("[Server] I see it's your first time using the monitor. I've invited you to the Discord feel free to join");
 
-                System.Diagnostics.Process.Start("https://discord.com/invite/VTeJ5hhF66");
+                System.Diagnostics.Process.Start("https://discord.com/invite/XXX"); // Update link on release.
 
                 Microsoft.Win32.Registry.SetValue(REGISTRY_KEY, REGISTY_VALUE, 1, Microsoft.Win32.RegistryValueKind.DWord);
             }
 
             Thread formatProgramNameThread = new Thread(() => formatProgramName(username));
-
             Console.Title = string.Format("Snapchat Monitor | Disconnected");
 
             try
@@ -54,6 +45,7 @@ namespace Snapchat_Monitor
                 if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "config.json"))
                 {
                     Console.WriteLine(string.Format("[-] {0} does not exist", AppDomain.CurrentDomain.BaseDirectory + "config.json".Split('\\').Last()));
+                    Console.Read();
 
                     Environment.Exit(1);
                 }
@@ -71,17 +63,15 @@ namespace Snapchat_Monitor
                         embedColour = config.discord.embedColour;
                         discordWebhook = config.discord.webhook;
 
-                        debug = false; // remember this is hard coded to false on release :)
-
-                        // if you're reading this then I hope my skid detection doesn't get you :D
+                        debug = false; // Remember this is hard coded to false on release :)
                     }
                 }
 
-                TcpClient client = new TcpClient("localhost", 1337);
+                TcpClient client = new TcpClient("localhost", 1337); // Change from localhost to server
                 NetworkStream stream = client.GetStream();
 
-                Thread pingThread = new Thread(() => Classes.Monitor.ping(stream, uuid, debug));
                 Thread checkForUpdatesThread = new Thread(() => checkForUpdates(stream, uuid, debug));
+                Thread pingThread = new Thread(() => Classes.Monitor.ping(stream, uuid, debug));
 
                 checkForUpdatesThread.Start();
 
@@ -111,20 +101,20 @@ namespace Snapchat_Monitor
                         stream.Close();
 
                         Console.Title = "[-] Snapchat Monitor | Disconnected - Update Required";
-
                         Console.WriteLine("[Server] You're now using an outdated version please update\n");
                     }
 
                     if (data.Contains("\"le0claEKQi4X9WnS4iMqC0qVlIyWvmHBQ9n78aJ5GOkOKOfydVWc5qOIZ5Njhb3CTvZMZWjZvaXUrIwMzQzY3uVGNPeopjGyPG24ZnTpJ0xfyJnHPiGOl5zEcgChn5mSWrYfEZ4CVbAE3QAhOgX5lHv6nky2BXNEKteS6n37lTLJFzfrNXlrknVqmw57Ao2gm9zBXtUhVPBCUlC91KlMQadC9LPqIrMbxA6M9KqREc49BeJJk2KBFlrD4N\":\"connected\""))
                     {
-                        Console.WriteLine("[Server] Welcome back {0}\n", username);
-
-                        formatProgramNameThread.Start();
                         pingThread.Start();
+                        formatProgramNameThread.Start();
+
+                        Console.WriteLine("[Server] Welcome back {0}\n", username);
                     }
 
                     if (data.Contains("\"le0claEKQi4X9WnS4iMqC0qVlIyWvmHBQ9n78aJ5GOkOKOfydVWc5qOIZ5Njhb3CTvZMZWjZvaXUrIwMzQzY3uVGNPeopjGyPG24ZnTpJ0xfyJnHPiGOl5zEcgChn5mSWrYfEZ4CVbAE3QAhOgX5lHv6nky2BXNEKteS6n37lTLJFzfrNXlrknVqmw57Ao2gm9zBXtUhVPBCUlC91KlMQadC9LPqIrMbxA6M9KqREc49BeJJk2KBFlrD4N\":\"VwcXoMPwiadrpL0MLuhR\""))
                         IO.saveMessage(username, data, discordWebhook, embedColour);
+
                     if (data.Contains("\"le0claEKQi4X9WnS4iMqC0qVlIyWvmHBQ9n78aJ5GOkOKOfydVWc5qOIZ5Njhb3CTvZMZWjZvaXUrIwMzQzY3uVGNPeopjGyPG24ZnTpJ0xfyJnHPiGOl5zEcgChn5mSWrYfEZ4CVbAE3QAhOgX5lHv6nky2BXNEKteS6n37lTLJFzfrNXlrknVqmw57Ao2gm9zBXtUhVPBCUlC91KlMQadC9LPqIrMbxA6M9KqREc49BeJJk2KBFlrD4N\":\"YT9KnW7wi6hbCvUseATC\""))
                         Console.WriteLine("[Snapchat] Received a live snapchat from {0}", JObject.Parse(data)["lSBjEQikC24hRmg"]);
 
@@ -185,10 +175,12 @@ namespace Snapchat_Monitor
             }
             catch (Exception e)
             {
-                formatProgramNameThread.Abort();
-                Console.Title = "[-] Snapchat Monitor | Disconnected";
+                if (debug)
+                    Console.WriteLine(e.ToString());
 
-                //Console.WriteLine(e.ToString());
+                formatProgramNameThread.Abort();
+
+                Console.Title = "[-] Snapchat Monitor | Disconnected";
                 Console.WriteLine("[Server] Connection killed\n\nPress enter to exit...");
 
                 Console.Read();
@@ -201,7 +193,7 @@ namespace Snapchat_Monitor
             {
                 Classes.Monitor.sendData(stream, new { t = "checkVersion", s = uuid, v = Assembly.GetExecutingAssembly().GetName().Version.ToString() }, debug);
 
-                Thread.Sleep(1000 * 60 * 1);
+                Thread.Sleep(1000 * 60);
             }
         }
 
