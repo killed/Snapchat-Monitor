@@ -11,7 +11,7 @@ namespace Snapchat_Monitor.Classes
             string Body = string.Empty;
 
             HttpWebRequest Request = (HttpWebRequest)WebRequest.Create(url);
-            Request.UserAgent = "Snapchat Monitor/v1";
+            Request.UserAgent = "Snapchat Monitor/v2";
             Request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
 
             try
@@ -22,8 +22,8 @@ namespace Snapchat_Monitor.Classes
 
                     Request.Method = WebRequestMethods.Http.Post;
                     Request.ContentType = "application/json";
-
                     Request.ContentLength = PostData.Length;
+
                     Request.GetRequestStream().Write(PostData, 0, PostData.Length);
                 }
 

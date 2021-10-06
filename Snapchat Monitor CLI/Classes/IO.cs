@@ -1,7 +1,7 @@
-﻿using Snapchat_Monitor_CLI.Classes;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.IO;
+using Newtonsoft.Json.Linq;
+using Snapchat_Monitor_CLI.Classes;
 
 namespace Snapchat_Monitor.Classes
 {
