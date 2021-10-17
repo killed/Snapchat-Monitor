@@ -23,16 +23,17 @@ namespace Snapchat_Monitor
 
             Chilkat.Crypt2 crypt = new Chilkat.Crypt2();
 
-            string uuid, username, payload, mac, data = crypt.GenerateUuid(), string.Empty, string.Empty, string.Empty, null;
-            string discordWebhook, embedColour = string.Empty, string.Empty;
-            bool startCheck, debug = false, false;
+            string uuid = crypt.GenerateUuid(), username = string.Empty, payload = string.Empty, mac = string.Empty, data = null, discordWebhook = string.Empty, embedColour = string.Empty;
+            bool startCheck = false, debug = false;
+            int i;
+
             Byte[] bytes = new Byte[8192];
 
             if (Convert.ToInt32(Microsoft.Win32.Registry.GetValue(REGISTRY_KEY, REGISTY_VALUE, 0)) == 0)
             {
-                Console.WriteLine("[Server] I see it's your first time using the monitor. I've invited you to the Discord feel free to join");
+                Console.WriteLine("[Server] I see it's your first time using the monitor. I've invited you to the Discord feel free to join\n\n");
 
-                System.Diagnostics.Process.Start("https://discord.com/invite/XXX"); // Update link on release.
+                System.Diagnostics.Process.Start("https://discord.gg/VxQquvsv28");
 
                 Microsoft.Win32.Registry.SetValue(REGISTRY_KEY, REGISTY_VALUE, 1, Microsoft.Win32.RegistryValueKind.DWord);
             }
@@ -63,11 +64,11 @@ namespace Snapchat_Monitor
                         embedColour = config.discord.embedColour;
                         discordWebhook = config.discord.webhook;
 
-                        debug = false; // Remember this is hard coded to false on release :)
+                        debug = false;
                     }
                 }
 
-                TcpClient client = new TcpClient("localhost", 1337); // Change from localhost to server
+                TcpClient client = new TcpClient("178.79.188.46", 1337); 
                 NetworkStream stream = client.GetStream();
 
                 Thread checkForUpdatesThread = new Thread(() => checkForUpdates(stream, uuid, debug));
