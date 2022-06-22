@@ -2,7 +2,7 @@
 * 17/10/2021
 
 # Bugs
-* [Discord](https://discord.gg/VxQquvsv28)
+* [Discord](https://discord.gg/tSaSxa7gAH)
 
 # Setup
 * [Download](https://github.com/killed/Snapchat-Monitor/releases/tag/v1)
